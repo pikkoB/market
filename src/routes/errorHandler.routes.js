@@ -4,8 +4,7 @@ const {
   ormErrorHandler,
 } = require("../middlewares/error.handler");
 
-// recibimos la instancia de la aplicacion
-// que creamos en app.js
+
 const errorHandlerRouter = (app) => {
   app.use(logError);
   app.use(ormErrorHandler);

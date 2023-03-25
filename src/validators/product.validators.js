@@ -3,7 +3,6 @@ const validateResult = require("../utils/validate");
 
 
 const createProductValidator = [
-    check("id").isInt().withMessage("El id debe ser un numero entero"),
     check("name", "Error con el campo name")
         .exists()
         .withMessage("Debe existir la propiedad 'name'")
@@ -29,7 +28,13 @@ const createProductValidator = [
         .withMessage("El campo price no debe estar vacio")
         .isFloat()
         .withMessage("El campo price debe ser un numero decimal"),
-    check("stock").isInt().withMessage("El stick debe ser un numero entero"),
+    check("stock", "error con el campor stock")
+        .exists()
+        .withMessage("Debe existir la propiedad 'stock'")
+        .notEmpty()
+        .withMessage("El campo stock no debe estar vacio")
+        .isInt()
+        .withMessage("El campo stock debe ser un numero entero"),
     check("product_image", "Error con el campo product_image")
         .exists()
         .withMessage("Debe existir la propiedad 'product_image'")

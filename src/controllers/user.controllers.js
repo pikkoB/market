@@ -1,30 +1,44 @@
 const AuthServices = require("../services/auth.services");
 const UsersServices = require("../services/user.services");
+const transporter = require("../utils/mailer")
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     const newUser = req.body;
+    console.log(newUser);
+    const user = await UsersServices.create(newUser);
+    if (user) {
+      await transporter.sendMail({
+        from: process.env.MAILER_CONFIG_USER,
+        to: user.email,
+        subject: "Bienvenido a MarketPlace.com",
+        html: `
+          <p>Hola ${user.username} Bienvenido al MarketPlace.com, donde podras vender y comprar sin comisiones</p>
+          <p>Es hora de que comiences a cargar tus productos y ver lo facil que es</p>`,
+      });
+    }
 
-    await UsersServices.create(newUser);
 
     res.status(201).json({
       success: true
     });
+
   } catch (error) {
     next(error);
   }
 };
 
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    // const { name, lastname } = req.body;
+
     await UsersServices.update(id, req.body);
-    res.status(204).send({
+
+    res.status(201).json({
       success: true
     });
   } catch (error) {
-    res.status(400).json(error);
+    next(error)
   }
 };
 
@@ -32,20 +46,3 @@ module.exports = {
   createUser,
   updateUser,
 };
-
-    // const { id, email, username } = result;
-    // const token = await AuthServices.genToken({
-    //   id,
-    //   email,
-    //   username,
-    // });
-    // await transporter.sendMail({
-    //   from: "marco2616@gmail.com",
-    //   to: result.email,
-    //   subject: "Verifica tu correo electronico",
-    //   html: `
-    //     <p>Hola ${result.username} Bienvenido al foro</p>
-    //     <p> Es necesario que verifiques tu correo </p>
-    //     <a href="http://localhost:5173/verify?token=${token}" target="_blank"> validar correo </a>
-    //   `,
-    // });

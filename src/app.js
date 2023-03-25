@@ -6,6 +6,7 @@ const db = require("./utils/database");
 const userRoutes = require("./routes/users.routes");
 const authRoutes = require("./routes/auth.routes");
 const cartRoutes = require("./routes/cart.routes");
+const orderRoutes = require("./routes/order.routes");
 const productsRoutes = require("./routes/products.routes");
 const errorHandlerRouter = require("./routes/errorHandler.routes");
 initModels();
@@ -26,7 +27,7 @@ db.authenticate()
   })
   .catch((error) => console.log(error));
 
-db.sync({ force: true }) // alterar los atributos
+db.sync({ force: false }) // alterar los atributos
   .then(() => console.log("Base de datos sync"))
   .catch((error) => console.log(error));
 
@@ -34,7 +35,7 @@ app.use(userRoutes);
 app.use(authRoutes);
 app.use(cartRoutes);
 app.use(productsRoutes);
-// app.use(categoriesRouter);
+app.use(orderRoutes);
 
 
 errorHandlerRouter(app);

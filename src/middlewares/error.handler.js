@@ -6,6 +6,7 @@ const {
   ConnectionRefusedError,
   ConnectionTimedOutError,
   InvalidConnectionError,
+  QueryError
 } = require("sequelize");
 
 const logError = (error, req, res, next) => {
@@ -50,6 +51,14 @@ const ormErrorHandler = (error, req, res, next) => {
       message: error.message,
       errors: error.errors,
       params: error["parameters"],
+    });
+  }
+
+  if (error instanceof QueryError) {
+    return res.status(404).json({
+      name: error.name,
+      message: error.message,
+      errors: error.errors,
     });
   }
 

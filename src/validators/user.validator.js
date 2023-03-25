@@ -38,49 +38,29 @@ const createUserValidator = [
 
 const updateUserValidator = [
   param("id").isInt().withMessage("El id debe ser un numero entero"),
-  check("name")
-    .isString()
-    .withMessage("la propiedad name debe ser un string")
+  check("username", "Error con el campo username")
     .exists()
-    .withMessage("No se encuentra el nombre para el usuario")
+    .withMessage("Debe existir la propiedad 'username'")
     .notEmpty()
-    .withMessage("La propiedad name no debe ser un string vacio"),
-  check("lastname")
+    .withMessage("El username no debe estar vacio")
     .isString()
-    .withMessage("la propiedad lastname debe ser un string")
+    .withMessage("El username debe ser un string")
+    .isLength({ min: 6, max: 30 })
+    .withMessage("El username debe tener entre 6 y 30 caracteres"),
+  check("avatar", "Error con el campo avatar")
     .exists()
-    .withMessage("No se encuentra la propiedad lastname")
+    .withMessage("Debe existir la propiedad 'avatar'")
     .notEmpty()
-    .withMessage("la propiedad lastname no debe ser un string vacio"),
+    .withMessage("El avatar no debe estar vacio")
+    .isURL()
+    .withMessage("el avatar debe ser una URL valida"),
   (req, res, next) => {
     validateResult(req, res, next);
   },
 ];
 
-const loginValidator = [
-  check("email", "Error con el correo electronico")
-    .exists()
-    .withMessage("No se encontro la propiedad email")
-    .notEmpty()
-    .withMessage("No se encontro un valor para el email")
-    .isString()
-    .withMessage("la propiedad email debe ser un string")
-    .isEmail()
-    .withMessage("El correo no tiene un formato correcto"),
-  check("password", "Error con la contraseña")
-    .exists()
-    .withMessage("No se encontro la propiedad password")
-    .notEmpty()
-    .withMessage("No se encontro un valor para la propiedad password")
-    .isString()
-    .withMessage("la propiedad password debe ser un string"),
-  (req, res, next) => {
-    validateResult(req, res, next);
-  },
-];
 
 module.exports = {
   createUserValidator,
   updateUserValidator,
-  loginValidator,
 };

@@ -11,12 +11,12 @@ class UsersServices {
     }
   }
 
-  static async update(id, updateUserData) {
+  static async update(id, data) {
     try {
-      const updatedUser = await Users.update(updateUserData, {
+      return await Users.update(data, {
         where: { id },
       });
-      return updatedUser;
+
     } catch (error) {
       throw error;
     }

@@ -19,7 +19,7 @@ const Users = db.define('users', {
     unique: true
   },
   password: {
-    type: DataTypes.STRING(30),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   avatar: {
@@ -39,7 +39,8 @@ const Users = db.define('users', {
       }
     },
   },
-}
+  timestamps: false,
+},
 );
 
 
