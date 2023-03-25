@@ -56,3 +56,18 @@ const addToCart = async (req, res, next) => {
         next(error)
     }
 }
+
+const getCart = async (req, res, next) => {
+    const {id : user_id} = req.user;
+    try {
+        const result = await CartServices.getCartByUser( user_id)
+        res.json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports = {
+    addToCart,
+    getCart
+}

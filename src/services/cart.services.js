@@ -52,5 +52,16 @@ class CartServices {
             throw error;
         }
     }
+
+    static async getCartByUser(user_id) {
+        try {
+            return await Cart.findOne({
+                where: {user_id},
+                include: ProductInCart
+            })
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 module.exports = CartServices;

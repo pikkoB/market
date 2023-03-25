@@ -5,8 +5,8 @@ const initModels = require("./models/initModels");
 const db = require("./utils/database");
 const userRoutes = require("./routes/users.routes");
 const authRoutes = require("./routes/auth.routes");
-// const postsRoutes = require("./routes/post.routes");
-// const answerRoutes = require("./routes/anwers.routes");
+const cartRoutes = require("./routes/cart.routes");
+const productsRoutes = require("./routes/products.routes");
 const errorHandlerRouter = require("./routes/errorHandler.routes");
 initModels();
 
@@ -32,8 +32,8 @@ db.sync({ force: true }) // alterar los atributos
 
 app.use(userRoutes);
 app.use(authRoutes);
-// app.use(postsRoutes);
-// app.use(answerRoutes);
+app.use(cartRoutes);
+app.use(productsRoutes);
 // app.use(categoriesRouter);
 
 
