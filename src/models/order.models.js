@@ -7,17 +7,17 @@ const Order = db.define('order', {
     primaryKey: true,
     autoIncrement: true
   },
-  total: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+  total: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  },
   is_completed: {
     type: DataTypes.BOOLEAN,
-    allowNull: false
+    defaultValue: false
   }
 });
 

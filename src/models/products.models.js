@@ -32,10 +32,6 @@ const Products = db.define('products', {
     type: DataTypes.TEXT,
     unique: true,
     allowNull: false
-  },
-  is_active: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
   }
 });
 
