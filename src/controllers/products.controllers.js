@@ -1,27 +1,24 @@
 const ProductsServices = require("../services/products.services");
 
+
 const getAllProducts = async (req, res, next) => {
+  
+  const url = "localhost:8000/api/v1/products";
 
   try {
     const { offset, limit } = req.query;
-    const posts = await ProductsServices.getAll(categoryId, offset, limit);
+    const posts = await ProductsServices.getAll( offset, limit);
     const { count, rows } = posts;
 
-    const url = "localhost:8000/api/v1/products";
 
     const newOffset = (isNext) => {
       if (isNext) return Number(offset) + Number(limit);
-
       return Number(offset) - Number(limit);
     };
 
-    const nextPage =
-      newOffset(true) >= count
-        ? null
-        : `${url}?offset=${newOffset(true)}&limit=${limit}`;
+    const nextPage = newOffset(true) >= count ? null : `${url}?offset=${newOffset(true)}&limit=${limit}`;
 
-    const previousPage =
-      +offset > 0 ? `${url}?offset=${newOffset(false)}&limit=${limit}` : null;
+    const previousPage = Number(offset) > 0 ? `${url}?offset=${newOffset(false)}&limit=${limit}` : null;
 
     const response = {
       count,
@@ -31,11 +28,11 @@ const getAllProducts = async (req, res, next) => {
     };
 
     res.json(!limit && !offset ? response.posts : response);
+
   } catch (error) {
     next(error);
   }
 };
-
 
 const createProduct = async (req, res, next) => {
   try {
@@ -51,6 +48,7 @@ const createProduct = async (req, res, next) => {
     res.status(201).json({
       success: true
     });
+
   } catch (error) {
     next(error);
   }
@@ -59,11 +57,23 @@ const createProduct = async (req, res, next) => {
 const updateProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { user_id } = await ProductsServices.getOne(id)
+
+    if (user_id != req.user.id) {
+      return next({
+        status: 401,
+        message: "Unauthorized",
+        errorName: "user not logged in",
+      });
+    }
+    
     const newData = req.body;
+    
     await ProductsServices.update(newData, id);
     res.status(204).send({
       success: true
     });
+
   } catch (error) {
     next(error);
   }

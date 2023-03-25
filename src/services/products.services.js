@@ -1,27 +1,25 @@
 const Products = require("../models/products.models");
 const { Op } = require("sequelize");
 const Users = require("../models/users.models");
-// const Answers = require("../models/answer.models");
-// const Categories = require("../models/category.models");
-// const Users = require("../models/user.models");
 
 class ProductsServices {
   static async getAll(offset, limit) {
-    
     try {
-      const result = await Products.findAndCountAll({
-        where: { stock: 
-          {
-            [Op.gt]: 0
-          }},
-        // attributes: {
-        //   exclude: ["description", "author", "categoryId", "craetedAt"],
-        // },
-        include: Users,
+      return await Products.findAndCountAll({
+        where: { stock: { [Op.gt]: 0 }},
         offset,
         limit,
+        include: Users,
       });
-      return result;
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getOne(id) {
+    try {
+      return await Products.findByPk(id);
     } catch (error) {
       throw error;
     }
@@ -29,8 +27,7 @@ class ProductsServices {
 
   static async create(data) {
     try {
-      const result = await Products.create(data);
-      return result;
+      return await Products.create(data);
     } catch (error) {
       throw error;
     }
@@ -38,10 +35,9 @@ class ProductsServices {
 
   static async update(newData, id) {
     try {
-      const result = await Products.update(newData, {
+      return await Products.update(newData, {
         where: { id },
       });
-      return result;
     } catch (error) {
       throw error;
     }
