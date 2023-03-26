@@ -1,5 +1,6 @@
 const Cart = require("../models/cart.models");
 const ProductInCart = require("../models/productInCart.models");
+const Products = require("../models/products.models");
 
 class CartServices {
     static async add(data) {
@@ -59,10 +60,17 @@ class CartServices {
         try {
             return await Cart.findOne({
                 where: {user_id},
+                attributes: {
+                    exclude: ["user_id"]
+                },
                 include: {
                     model: ProductInCart,
                     attributes: {
-                        exclude: ["cart_id"]
+                        exclude: ["cart_id", "id"]
+                    },
+                    include: {
+                        model: Products,
+                        attributes: ["name"]
                     }
                 }
             })

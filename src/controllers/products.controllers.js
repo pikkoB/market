@@ -62,8 +62,8 @@ const updateProduct = async (req, res, next) => {
     if (user_id != req.user.id) {
       return next({
         status: 401,
-        message: "Unauthorized",
-        errorName: "user not logged in",
+        message: "User not logged in. Process with login",
+        errorName: "Unauthorized",
       });
     }
     

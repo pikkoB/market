@@ -34,10 +34,10 @@ const Products = db.define('products', {
     allowNull: false
   }
 },
-// {
-//   timestamps: true,
-//   createdAt: false 
-//}
+{
+  timestamps: true,
+  createdAt: false 
+}
 );
 
 

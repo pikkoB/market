@@ -9,12 +9,12 @@ const Users = db.define('users', {
     autoIncrement: true
   },
   username: {
-    type: DataTypes.STRING(30),
+    type: DataTypes.STRING(50),
     allowNull: false,
     unique: true
   },
   email: {
-    type: DataTypes.STRING(30),
+    type: DataTypes.STRING(50),
     allowNull: false,
     unique: true
   },
