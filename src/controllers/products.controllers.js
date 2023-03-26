@@ -56,8 +56,8 @@ const createProduct = async (req, res, next) => {
 
 const updateProduct = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const { user_id } = await ProductsServices.getOne(id)
+    const { id_product } = req.params;
+    const { user_id } = await ProductsServices.getOne(id_product)
 
     if (user_id != req.user.id) {
       return next({
@@ -67,9 +67,7 @@ const updateProduct = async (req, res, next) => {
       });
     }
     
-    const newData = req.body;
-    
-    await ProductsServices.update(newData, id);
+    await ProductsServices.update(req.body, id_product);
     res.status(204).send({
       success: true
     });

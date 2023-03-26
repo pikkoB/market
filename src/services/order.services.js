@@ -10,7 +10,7 @@ class OrderServices {
         }
     }
 
-    static async addproduct(data) {
+    static async addProduct(data) {
         try {
             return await ProductInOrder.create(data)
         } catch (error) {
@@ -20,9 +20,17 @@ class OrderServices {
 
     static async getOrderByUser(user_id) {
         try {
-            return await Order.findOne({
+            return await Order.findAll({
                 where: {user_id},
-                include: ProductInOrder
+                attributes: {
+                    exclude: ["user_id"]
+                },
+                include: {
+                    model: ProductInOrder,
+                    attributes: {
+                        exclude: ["order_id"]
+                    }
+                }
             })
         } catch (error) {
             throw error;

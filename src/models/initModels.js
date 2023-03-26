@@ -28,7 +28,7 @@ const initModels = () => {
   ProductInOrder.belongsTo(Products, { foreignKey: "product_id" });
 
   //car 1 ------ * products_in_car
-  Cart.hasMany(ProductInCart, { foreignKey: "cart_id" });
+  Cart.hasMany(ProductInCart, { foreignKey: "cart_id", onDelete: 'cascade' });
   ProductInCart.belongsTo(Cart, { foreignKey: "cart_id" });
 
   //Order 1 ------ * products_in_order

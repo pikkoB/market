@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../utils/database");
 
-const ProductInOrder = db.define('product_in_order', {
+const ProductInOrder = db.define('product_in_orders', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -23,6 +23,8 @@ const ProductInOrder = db.define('product_in_order', {
     type: DataTypes.FLOAT,
     allowNull: false
   }
+},{
+  timestamps: false
 });
 
 module.exports = ProductInOrder; 

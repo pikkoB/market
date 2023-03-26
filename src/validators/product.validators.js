@@ -40,15 +40,15 @@ const createProductValidator = [
         .withMessage("Debe existir la propiedad 'product_image'")
         .notEmpty()
         .withMessage("El campo product_image no debe estar vacio")
-        .isString()
-        .withMessage("El campo product_image debe ser un string"),
+        .isURL()
+        .withMessage("El campo product_image debe ser una url valida"),
     (req, res, next) => {
         validateResult(req, res, next);
     },
 ];
 
 const updateProductValidator = [
-    param("id").isInt().withMessage("El id debe ser un numero entero"),
+    param("id_product").isInt().withMessage("El id debe ser un numero entero"),
     check("description", "Error con el campo description")
         .exists()
         .withMessage("Debe existir la propiedad 'description'")
@@ -58,13 +58,6 @@ const updateProductValidator = [
         .withMessage("El campo description debe ser un string")
         .isLength({ min: 6 })
         .withMessage("El campo description debe tener minimo de 6 caracteres"),
-    check("is_active", "Error con el campo is_active")
-        .exists()
-        .withMessage("Debe existir la propiedad 'is_active'")
-        .notEmpty()
-        .withMessage("El campo is_active no debe estar vacio")
-        .isBoolean()
-        .withMessage("El campo is_active debe ser un boolean"),
     (req, res, next) => {
         validateResult(req, res, next);
     },

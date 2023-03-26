@@ -19,6 +19,10 @@ const Order = db.define('order', {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   }
+},
+{
+  timestamps: true,
+  updatedAt: false
 });
 
 

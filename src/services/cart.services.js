@@ -45,9 +45,11 @@ class CartServices {
         }
     }
 
-    static async updateProductInCart(data) {
+    static async updateProductInCart(id, data) {
         try {
-            return ProductInCart.update(data)
+            return ProductInCart.update(data, {
+                where: {id}
+            })
         } catch (error) {
             throw error;
         }
@@ -57,7 +59,22 @@ class CartServices {
         try {
             return await Cart.findOne({
                 where: {user_id},
-                include: ProductInCart
+                include: {
+                    model: ProductInCart,
+                    attributes: {
+                        exclude: ["cart_id"]
+                    }
+                }
+            })
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async deleteCart(user_id) {
+        try {
+            return await Cart.destroy({
+                where: {user_id}
             })
         } catch (error) {
             throw error;

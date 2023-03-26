@@ -23,6 +23,9 @@ const ProductInCart = db.define('product_in_cart', {
     type: DataTypes.FLOAT,
     allowNull: false
   }
+},
+{
+  timestamps: false
 });
 
 

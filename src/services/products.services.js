@@ -9,7 +9,10 @@ class ProductsServices {
         where: { stock: { [Op.gt]: 0 }},
         offset,
         limit,
-        include: Users,
+        include: {
+          model: Users,
+          attributes: ["username", "avatar"]
+        }
       });
 
     } catch (error) {
@@ -33,9 +36,9 @@ class ProductsServices {
     }
   }
 
-  static async update(newData, id) {
+  static async update(data, id) {
     try {
-      return await Products.update(newData, {
+      return await Products.update(data, {
         where: { id },
       });
     } catch (error) {

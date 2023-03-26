@@ -16,6 +16,9 @@ const Cart = db.define('carts', {
     type: DataTypes.FLOAT,
     allowNull: false
   }
+},
+{
+  timestamps: false
 });
 
 

@@ -6,6 +6,6 @@ const router = Router();
 
 router.post("/api/v1/order/:user", authenticate, createOrder)
 
-router.get("/api/v1/cart", authenticate, getOrder)
+router.get("/api/v1/order", authenticate, getOrder)
 
 module.exports = router;

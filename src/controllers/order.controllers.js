@@ -1,5 +1,7 @@
+const { response } = require("express");
 const CartServices = require("../services/cart.services");
 const OrderServices = require("../services/order.services");
+const ProductsServices = require("../services/products.services");
 
 const createOrder = async (req, res, next) => {
     //necesito verificar la autenticacion.. token y user por params
@@ -9,51 +11,63 @@ const createOrder = async (req, res, next) => {
     //crear listado de productos por order
 
     const { id } = req.user;
-    const { user } = req.param;
+    const { user } = req.params;
+    
     if (id != user) {
         return next({
             status: 401,
-            message: "Unauthorized",
-            errorName: "user not logged in",
+            message: "user not logged in",
+            errorName: "Unauthorized",
         });
     }
 
     try {
         const result = await CartServices.getCartByUser(user)
-
-        let products = result.products_in_cart;
+        
+        let products = result.product_in_carts;
         let totalTemp = 0
         let toFilter = []
-        products.forEach( async (product) => {
+
+        products?.forEach( async (product) => {
             const { stock, price } = await ProductsServices.getOne(product.product_id)
-            if (stock < product.quantity) {
-                const newProduct = {
-                    product_id: product.product_id,
-                    quantity: stock,
-                    sub_total: stock * price
+           
+                if (stock < product.quantity) {
+                    const newProduct = {
+                        product_id: product.product_id,
+                        quantity: stock,
+                        sub_total: stock * price
+                    }
+                    toFilter.push(newProduct)
+                    totalTemp = totalTemp + (stock * price)
+                } else {
+                    toFilter.push(product);
+                    totalTemp += product.sub_total;
                 }
-                toFilter.push(newProduct)
-                totalTemp = totalTemp + (stock * price)
-            }
-            toFilter.push(product);
-            totalTemp += product.sub_total;
         });
 
-        const productsToOrder = toFilter.filter(item => item.quantity > 0 )
+        let productsToOrder = []
+        setTimeout(async () => {
+            productsToOrder = toFilter.filter(item => item.quantity > 0 )
+            const order = await OrderServices.create({
+                total: totalTemp,
+                user_id: user
+            })
+            productsToOrder?.forEach(async ({product_id, quantity, sub_total}) => {
+                const newProduct = {
+                    product_id,
+                    quantity,
+                    sub_total,
+                    order_id: order.id
+                }
+                await OrderServices.addProduct(newProduct)
+            })
 
-        const {id} = await OrderServices.create({
-            total: totalTemp,
-            user_id: user
-        })
-        
-        productsToOrder.forEach( async (product) => {
-            product.order_id = id
-            await OrderServices.addProduct(product)
-        })
+            await CartServices.deleteCart(user)
+            res.status(201).json({
+                success: true,
+            });
+        }, 500)
 
-        res.status(201).json({
-            success: true
-        });
 
     } catch (error) {
         next(error)

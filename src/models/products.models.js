@@ -33,7 +33,12 @@ const Products = db.define('products', {
     unique: true,
     allowNull: false
   }
-});
+},
+// {
+//   timestamps: true,
+//   createdAt: false 
+//}
+);
 
 
 module.exports = Products;
