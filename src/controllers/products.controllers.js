@@ -37,14 +37,23 @@ const getAllProducts = async (req, res, next) => {
 const createProduct = async (req, res, next) => {
   try {
     const {id} = req.user;
-    if (id != req.body.user_id) {
+    const {name, description, price, stock, user_id} = req.body
+    if (id != user_id) {
       return next({
         status: 401,
         message: "Unauthorized",
         errorName: "user not logged in",
       });
     }
-    await ProductsServices.create(req.body);
+    const newData = {
+      name, 
+      description, 
+      price: +price, 
+      stock: +stock, 
+      user_id: +user_id,
+      product_image: req.file.path
+    }
+    await ProductsServices.create(newData);
     res.status(201).json({
       success: true
     });

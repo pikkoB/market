@@ -31,12 +31,11 @@ const createUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
+    
 
-    await UsersServices.update(id, req.body);
+    // await UsersServices.update(id, req.body);
 
-    res.status(201).json({
-      success: true
-    });
+    res.status(201).json(req.file);
   } catch (error) {
     next(error)
   }
