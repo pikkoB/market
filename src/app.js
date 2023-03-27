@@ -45,7 +45,7 @@ app.get('/app/uploads/:filename', (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Bienvenidos a Marketplace");
+  res.send("Bienvenidos a Marketplace | by Marco Cardenas | G-21 ACADEMLO");
 })
 
 errorHandlerRouter(app);
