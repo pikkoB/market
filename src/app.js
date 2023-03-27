@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth.routes");
 const cartRoutes = require("./routes/cart.routes");
 const orderRoutes = require("./routes/order.routes");
 const productsRoutes = require("./routes/products.routes");
+const path = require('path');
 const errorHandlerRouter = require("./routes/errorHandler.routes");
 initModels();
 
@@ -37,6 +38,11 @@ app.use(cartRoutes);
 app.use(productsRoutes);
 app.use(orderRoutes);
 
+app.get('/app/uploads/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const imagePath = path.join(__dirname, '../uploads', filename);
+  res.sendFile(imagePath);
+});
 
 app.get("/", (req, res) => {
   res.send("Bienvenidos a Marketplace");

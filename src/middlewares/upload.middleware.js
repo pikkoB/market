@@ -24,6 +24,6 @@ const multerUpload = multer({
     },
 });
 
-app.use("/app/uploads/", express.static(path.join(__dirname, "../../uploads")))
+
 
 module.exports = multerUpload;
