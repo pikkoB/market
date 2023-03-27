@@ -3,6 +3,7 @@ const path = require('path');
 
 
 
+
 const MIMETYPES = ['image/jpeg', 'image/png'];
 
 const multerUpload = multer({
@@ -18,7 +19,7 @@ const multerUpload = multer({
         else cb(new Error(`Only ${MIMETYPES.join(' ')} mimetypes are allowed`));
     },
     limits: {
-        fieldSize: 10000000,
+        fieldSize: 20000000,
     },
 });
 

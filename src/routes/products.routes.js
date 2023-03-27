@@ -14,7 +14,10 @@ router.post("/api/v1/products",
     multerUpload.single('file'),
     createProduct);
 
-router.put("/api/v1/products/:id_product", updateProductValidator, authenticate, updateProduct);
+router.put("/api/v1/products/:id_product", 
+    updateProductValidator, 
+    authenticate, 
+    updateProduct);
 
 
 module.exports = router;

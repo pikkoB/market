@@ -32,10 +32,9 @@ const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
     
+    await UsersServices.update(id, {avatar: req.file?.path});
 
-    // await UsersServices.update(id, req.body);
-
-    res.status(201).json(req.file);
+    res.status(201).json({success: true});
   } catch (error) {
     next(error)
   }
