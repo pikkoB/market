@@ -8,8 +8,6 @@ const authRoutes = require("./routes/auth.routes");
 const cartRoutes = require("./routes/cart.routes");
 const orderRoutes = require("./routes/order.routes");
 const productsRoutes = require("./routes/products.routes");
-const uploadRoutes = require("./routes/upload.routes");
-const path = require('path');
 const errorHandlerRouter = require("./routes/errorHandler.routes");
 initModels();
 
@@ -38,8 +36,7 @@ app.use(authRoutes);
 app.use(cartRoutes);
 app.use(productsRoutes);
 app.use(orderRoutes);
-app.use(uploadRoutes);
-app.use("/app/uploads/", express.static(path.join(__dirname, "../../uploads")))
+
 
 app.get("/", (req, res) => {
   res.send("Bienvenidos a Marketplace");

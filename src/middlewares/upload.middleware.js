@@ -1,8 +1,9 @@
+const express = require("express");
 const multer = require("multer");
 const path = require('path');
 
 
-
+const app = express();
 
 const MIMETYPES = ['image/jpeg', 'image/png'];
 
@@ -23,5 +24,6 @@ const multerUpload = multer({
     },
 });
 
+app.use("/app/uploads/", express.static(path.join(__dirname, "../../uploads")))
 
 module.exports = multerUpload;
