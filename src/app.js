@@ -19,7 +19,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 
-const PORT = 8000;
+const PORT = 8001;
 
 db.authenticate()
   .then(() => {
@@ -37,6 +37,9 @@ app.use(cartRoutes);
 app.use(productsRoutes);
 app.use(orderRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Bienvenidos a Marketplace");
+})
 
 errorHandlerRouter(app);
 

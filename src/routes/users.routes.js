@@ -9,4 +9,6 @@ router.post("/api/v1/users", createUserValidator, createUser);
 
 router.put("/api/v1/users/:id", multerUpload.single('file'), updateUser);
 
+
+
 module.exports = router;
