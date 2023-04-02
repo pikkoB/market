@@ -1,3 +1,4 @@
+const Users = require("../models/users.models");
 const AuthServices = require("../services/auth.services");
 const UsersServices = require("../services/user.services");
 const transporter = require("../utils/mailer")
@@ -13,8 +14,13 @@ const createUser = async (req, res, next) => {
         to: user.email,
         subject: "Bienvenido a MarketPlace.com",
         html: `
-          <p>Hola ${user.username} Bienvenido al MarketPlace.com, donde podras vender y comprar sin comisiones</p>
-          <p>Es hora de que comiences a cargar tus productos y ver lo facil que es</p>`,
+        <h1 style= "color: red"> Hola! ${username} bienvenido a supermarket.com.</h1>
+        <hr>
+        <p> Donde comprar y vender esta a un solo click </p>
+        <br></br>
+        <hr><hr><hr>
+        <p>Es hora de que comiences a cargar tus productos y ver lo facil que es</p>`,
+
       });
     }
 
@@ -40,7 +46,13 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+
+
+
+
+
 module.exports = {
   createUser,
   updateUser,
+
 };

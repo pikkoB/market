@@ -9,7 +9,6 @@ const router = Router();
 router.get("/api/v1/products", getAllProducts);
 
 router.post("/api/v1/products", 
-    // createProductValidator, 
     authenticate, 
     multerUpload.single('file'),
     createProduct);

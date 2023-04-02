@@ -32,6 +32,8 @@ class UsersServices {
       throw error;
     }
   }
+
+
 }
 
 module.exports = UsersServices;

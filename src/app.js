@@ -28,7 +28,7 @@ db.authenticate()
   })
   .catch((error) => console.log(error));
 
-db.sync({ alter: false }) // alterar los atributos
+db.sync({ alter: false}) 
   .then(() => console.log("Base de datos sync"))
   .catch((error) => console.log(error));
 
@@ -45,7 +45,7 @@ app.get('/app/uploads/:filename', (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Bienvenidos a Marketplace | by Marco Cardenas | G-21 ACADEMLO");
+  res.send("Bienvenidos a web");
 })
 
 errorHandlerRouter(app);

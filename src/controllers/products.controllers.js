@@ -53,7 +53,7 @@ const createProduct = async (req, res, next) => {
       user_id: +user_id,
       product_image: req.file?.path
     }
-    // await ProductsServices.create(newData);
+    await ProductsServices.create(newData);
     res.status(201).json({
       success: true
     });

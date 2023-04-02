@@ -78,11 +78,13 @@ const createOrder = async (req, res, next) => {
                 to: email,
                 subject: "Confirmacion de Orden en MarketPlace.com",
                 html: `
-                    <p>Hola ${username} MarketPlace.com ha registrado una compra, proceda con el pago prontamente para realizar el despacho oportuno y disfrutes de nuestros productos increibles.</p>
-                    <p>Cantidad de Artículos: ${productsToOrder.length}</p>,
-                    <p>Monto: ${totalTemp.toFixed(2)}</p>
-                    <a href="paypal.com">Proceder con el pago</a>
-                    `
+                <h1 style= "color: red"> Hola! ${username} bienvenido a supermarket.com.</h1>
+                <p> Hemos registrado tu compra, ahora solo continua con el pago para que disfrutes de tu compra.</p>
+                <p> El valor total a pagar con envio de tu orden es: ${totalTemp.tofixed(2)} </p>
+                <p> </p>
+                <button> <a href="paypal.com">Proceder con el pago</a> </button>
+            `
+
             });
 
 

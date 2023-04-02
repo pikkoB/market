@@ -29,9 +29,8 @@ const Products = db.define('products', {
     allowNull: false
   },
   product_image: {
-    type: DataTypes.TEXT,
-    unique: true,
-    allowNull: false
+    type: DataTypes.STRING,
+
   }
 },
 {
